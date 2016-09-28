@@ -30,7 +30,7 @@ mutInc = []
 
 ln = ""
 lx = 0
-ly = 0
+ly = 10
 counter = 0
 fr = open(inPut) 
 lines = fr.readlines()
@@ -43,49 +43,55 @@ for i in range(len(lines)):
         counter+= 1
     
     else:
-        print ln
+        
         if counter==0:
-            print "Counter = 0"
+            #print "Counter = 0"
+            print ""
             #NO start header, skip
         elif counter==1:
-            print "Counter = 1"
+            #print "Counter = 1"
             ln = ln.replace(" ", "")
             items.append(ln[0])
             itemsW.append(int(re.search(r'\d+', ln).group()))
         elif counter == 2:
-            print "Counter = 2"
-            #if line contains "a":
-                #a is active, set weight
-            #elif line contains "b":
-                #b is active, set weight
-            #elif line contains "c":
-                #c is active, set weight
-            #...
-            #elif line contains "z":
-                #z is active, set weight     
+            #print "Counter = 2"
+            ln = ln.replace(" ", "")
+            bags.append(ln[0])
+            bagsC.append(int(re.search(r'\d+', ln).group()))   
+ 
         elif counter == 3:
-            print "Counter = 3"
-            #lx = x
-            #ly = y
-        elif counter == 4:
-            print "Counter = 4"
-            #set inclusive contraints on items
+            #print "Counter = 3"
+            fitLim = [int(n) for n in ln.split()]
+
+        elif counter == 4: 
+            #print "Counter = 4"
+            temp = ln[1:]
+            inclB.append([str(n) for n in temp.split()])
+            ln = ln.replace(" ", "")
+            inclI.append([ln[0]])
+            
         elif counter == 5:
-            print "Counter = 5"
-            #set exclusive contraints on items
+            #print "Counter = 5"
+            temp = ln[1:]
+            exclB.append([str(n) for n in temp.split()])
+            ln = ln.replace(" ", "")
+            exclI.append([ln[0]])
+            
         elif counter == 6:
-            print "Counter = 6"
-            #Set items to be in same bag
+            #print "Counter = 6"
+            binEqI.append([str(n) for n in ln.split()])
+
         elif counter == 7:
-            print "Counter = 7"
-            #set items to never be in the same bag
+            #print "Counter = 7"
+            binUnI.append([str(n) for n in ln.split()])
+
         elif counter == 8:
-            print "Counter = 8"
-            #set items and bags to be mutally inclusive
+            #print "Counter = 8"
+            mutInc.append([str(n) for n in ln.split()])
 
 fr.closed
 
-       
+print "Inputs:"       
 print items 
 print itemsW 
 print bags 
