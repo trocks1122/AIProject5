@@ -10,10 +10,21 @@ import re
 #from StringIO import StringIO
 
 
-#arguements from input .csv file
+#arguements from input  file
 script, inPut = sys.argv
 
-#dataT = np.loadtxt(open(csvIN,"rb"),delimiter=",",skiprows=1)
+#Variables
+A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z = ([-1,'abcdefghijklmnopqrstuvwxyz'] for i in range(26))  
+#follows this pattern:
+#	[0]: Active/weight; -1 => inactive and should be discarded
+#	[1]: add all possible box matches
+a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q , r, s, t, u, v, w, x,y,z = ([-1] for i in range(26))
+#follows this pattern:
+#	[0]: Active/capacity; -1 => inactive and should be discarded
+#	[?]
+rMin = 0
+rMax = 0 #Range of inclusion from min to max
+
 ln = ""
 lx = 0
 ly = 0
@@ -23,9 +34,10 @@ lines = fr.readlines()
 
 for i in range(len(lines)):
     ln = lines[i].rstrip('\n')
+    ln = ln.replace(" ", "")
     #print ln
     if ln.find("#") != -1:
-        print "This is comment" + ln
+        #print "This is comment" + ln
         counter+= 1
     
     else:
@@ -35,12 +47,21 @@ for i in range(len(lines)):
             #NO start header, skip
         elif counter==1:
             print "Counter = 1"
-            #if line contains "A":
-                #A is active, set weight
-            #elif line contains "B":
-                #B is active, set weight
-            #elif line contains "C":
-                #C is active, set weight
+            if ln.find("A") != -1:
+                A[0] = int(re.search(r'\d+', ln).group())
+                #print A
+            elif ln.find("B") != -1:
+                B[0] = int(re.search(r'\d+', ln).group())
+                #print B
+            elif ln.find("C") != -1:
+                C[0] = int(re.search(r'\d+', ln).group())
+                #print C
+            elif ln.find("D") != -1:
+                D[0] = int(re.search(r'\d+', ln).group())
+                #print D
+            elif ln.find("E") != -1:
+                E[0] = int(re.search(r'\d+', ln).group())
+                #print E
             #...
             #elif line contains "Z":
                 #Z is active, set weight
