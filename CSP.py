@@ -41,8 +41,24 @@ class CSP(search.problem):
 							self.curr_domains[i].remove[h]
 							self.pruned[var].append((i, h))
 
+	def succ(self, assignment):
+		if len(assignment) == len(self.vars):
+			return []
+		else:
+			car = find_if(lambda v: v not in assignment, self.vars)
+			result = []
+			for val in self.domains[var]:
+				if self.nconflicts(self, var, val, assignment) == 0:
+					a = assignment.cope; a[var] = val
+					result.append(((var, val), a))
+			return result
+	
 
-
+	def goal(self, assignment):
+		return (len(assignment) == len(self.vars) and every(lambda var: self.nconflicts(var, assignment[var], assignment) == 0, self.vars))
+	
+	def conflicted_vars(self, currrent):
+		return [var for var in self.vars if self.nconflicts(var, current[var], current) > 0]
 
 
 def backtracking(csp, mcv=False, lcv=False, fc=False, mac=False):
