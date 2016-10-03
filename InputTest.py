@@ -91,6 +91,7 @@ for i in range(len(lines)):
 
 fr.closed
 
+
 print "Inputs:"       
 print items 
 print itemsW 
@@ -106,8 +107,31 @@ print binUnI
 print mutInc
 
 
+#create objects
+bagsO = {}
+itemsO = {}
 
-     
+for a in range items:
+    name = items[a]
+    weight = itemsW[a]
+    itemsO[name] = Item(name, weight)
+
+for b in range bags:     
+    name = bags[b]
+    capacity = bagsC[b]
+    bagsO[name] = Bag(name, capacity)
+
+for c in bags:
+    constraint = Constraint(Constraint.BAG_FIT_LIMIT, bags=[bags[c]], min_items=fitLim[0], max_items=fitLim[1])
+    bags[c].constraints.append(constraint)
+
+for d in inclI:
+    name = inclI[d]
+    reqBags = inclB[d]
+    constraint = Constraint(Constraint.UNARY_CONSTRAINT_IN_BAGS, item
+
+
+
 
 
 
