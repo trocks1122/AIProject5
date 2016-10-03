@@ -10,6 +10,7 @@ import numpy as np
 import csv
 import sys
 import re
+import os.path
 from .Bag import Bag
 from .item import Item
 from .constraint import Constraint
@@ -119,12 +120,12 @@ print mutInc
 bags = {}
 items = {}
 
-for a in range items0:
+for a in items0:
     name = items0[a]
     weight = itemsW[a]
     items[name] = Item(name, weight)
 
-for b in range bags0:     
+for b in bags0:     
     name = bags0[b]
     capacity = bagsC[b]
     bags[name] = Bag(name, capacity)
