@@ -92,8 +92,7 @@ class Solver(object):
             return False
         assigned_item_name = assignment.keys()
         for constraint in item.constraints:
-            if Constraint.UC_IN_BAGS <= constraint.constraint_type <= Constraint. \
-                    UC_NOT_IN_BAGS:
+            if Constraint.UC_IN_BAGS <= constraint.constraint_type <= Constraint.UC_NOT_IN_BAGS:
                 item.bag = bag
                 bag.items.append(item)
                 if not constraint.validate():
@@ -103,8 +102,7 @@ class Solver(object):
                 item.bag = None
                 bag.items.remove(item)
 
-            elif Constraint.BC_EQ <= constraint.constraint_type \
-                     <= Constraint.BC_INC:
+            elif Constraint.BC_EQ <= constraint.constraint_type<= Constraint.BC_INC:
                 neighbor = constraint.get_neighbor(item)
                 if neighbor.name in assigned_item_name:
                     item.bag = bag
