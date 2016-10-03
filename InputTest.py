@@ -7,10 +7,10 @@ import numpy as np
 import csv
 import sys
 import re
-from bag import Bag
-from item import Item
-from constraint import Constraint
-from csp import CSP
+from .bag import Bag
+from .item import Item
+from .constraint import Constraint
+from .csp import CSP
 #from StringIO import StringIO
 
 
@@ -126,28 +126,28 @@ for b in range bags:
     bags[name] = Bag(name, capacity)
 
 for c in bagsO:
-    constraint = Constraint(Constraint.BAG_FIT_LIMIT, bags=[bags[c]], min_items=fitLim[0], max_items=fitLim[1])
+    constraint = Constraint(Constraint.BAG_FIT_CON, bags=[bags[c]], min_items=fitLim[0], max_items=fitLim[1])
     bags[c].constraints.append(constraint)
 
 for d in inclI:
-    constraint = Constraint(Constraint.UNARY_CONSTRAINT_IN_BAGS, items=[items[inclI[d]]], bags=inclB[d])
+    constraint = Constraint(Constraint.UC_IN_BAGS, items=[items[inclI[d]]], bags=inclB[d])
     items[inclI[d]].constraints.append(constraint)
 
 for e in exclI:
-    constraint = Constraint(Constraint.UNARY_CONSTRAINT_NOT_IN_BAGS, items=[items[exclI[e]]], bags=exclB[e])
+    constraint = Constraint(Constraint.UC_NOT_IN_BAGS, items=[items[exclI[e]]], bags=exclB[e])
     items[exclI[e]].constraints.append(constraint)
 
 for f in binEqI:
     itemA = binEqI[f][0]
     itemB = binEqI[f][1]
-    constraint = Constraint(Constraint.BINARY_CONSTRAINT_EQUALITY, items=[items[item1], items[item2]])
+    constraint = Constraint(Constraint.BC_EQ, items=[items[item1], items[item2]])
     for g in [item1, item2]: 
         items[i].constraints.append(constraint)
 
 for h in binEqI:
     itemA = binUnI[h][0]
     itemB = binUnI[h][1]
-    constraint = Constraint(Constraint.BINARY_CONSTRAINT_INEQUALITY, items=[items[item1], items[item2]])
+    constraint = Constraint(Constraint.BC_INEQ, items=[items[item1], items[item2]])
     for j in [item1, item2]: 
         items[j].constraints.append(constraint)
 
@@ -156,7 +156,7 @@ for k in mutInc:
     itemB = mutInc[k][1]
     bag1 = mutInc[k][2]
     bag2 = mutInc[k][3]
-    constraint = Constraint(Constraint.BINARY_CONSTRAINT_INCLUSIVITY, items=[
+    constraint = Constraint(Constraint.BC_INC, items=[
 items[itemA], items[itemB]], bags=[bags[bag1], bags[bag2]])
     items[itemA].constraints.append(constraint)
     items[itemB].constraints.append(constraint)
