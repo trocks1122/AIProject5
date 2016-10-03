@@ -23,9 +23,9 @@ class Bag(object):
 		weight = self.total_weight()
 		almost_weight = math.floor(self.capacity*.9)
 		if weight < almost_weight:
-			return false
+			return False
 		else:
-			return true
+			return True
 
 
 
@@ -35,6 +35,14 @@ class Bag(object):
 			return true
 		else:
 			return false
+
+	def lower_limit(self):
+		for constrait in self.constraits:
+			result = constrait.bag_fit_limit()
+			if result == COnstraint.BAG_ITEM_NOT_ENOUGH:
+				return False
+		return True
+
 
 	
 
