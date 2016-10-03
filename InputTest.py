@@ -7,6 +7,10 @@ import numpy as np
 import csv
 import sys
 import re
+from bag import Bag
+from item import Item
+from constraint import Constraint
+from csp import CSP
 #from StringIO import StringIO
 
 
@@ -14,9 +18,9 @@ import re
 script, inPut = sys.argv
 
 #Variables 
-items = []
+items0 = []
 itemsW = []
-bags = []
+bags0 = []
 bagsC = []
 fitLim = [] #Range of inclusion from min to max
 inclI = []
@@ -51,12 +55,12 @@ for i in range(len(lines)):
         elif counter==1:
             #print "Counter = 1"
             ln = ln.replace(" ", "")
-            items.append(ln[0])
+            items0.append(ln[0])
             itemsW.append(int(re.search(r'\d+', ln).group()))
         elif counter == 2:
             #print "Counter = 2"
             ln = ln.replace(" ", "")
-            bags.append(ln[0])
+            bags0.append(ln[0])
             bagsC.append(int(re.search(r'\d+', ln).group()))   
  
         elif counter == 3:
@@ -93,9 +97,9 @@ fr.closed
 
 
 print "Inputs:"       
-print items 
+print items0 
 print itemsW 
-print bags 
+print bags0 
 print bagsC 
 print fitLim
 print inclI 
@@ -112,28 +116,58 @@ bagsO = {}
 itemsO = {}
 
 for a in range items:
-    name = items[a]
+    name = items0[a]
     weight = itemsW[a]
-    itemsO[name] = Item(name, weight)
+    items[name] = Item(name, weight)
 
 for b in range bags:     
-    name = bags[b]
+    name = bags0[b]
     capacity = bagsC[b]
-    bagsO[name] = Bag(name, capacity)
+    bags[name] = Bag(name, capacity)
 
-for c in bags:
+for c in bagsO:
     constraint = Constraint(Constraint.BAG_FIT_LIMIT, bags=[bags[c]], min_items=fitLim[0], max_items=fitLim[1])
     bags[c].constraints.append(constraint)
 
 for d in inclI:
-    name = inclI[d]
-    reqBags = inclB[d]
-    constraint = Constraint(Constraint.UNARY_CONSTRAINT_IN_BAGS, item
+    constraint = Constraint(Constraint.UNARY_CONSTRAINT_IN_BAGS, items=[items[inclI[d]]], bags=inclB[d])
+    items[inclI[d]].constraints.append(constraint)
+
+for e in exclI:
+    constraint = Constraint(Constraint.UNARY_CONSTRAINT_NOT_IN_BAGS, items=[items[exclI[e]]], bags=exclB[e])
+    items[exclI[e]].constraints.append(constraint)
+
+for f in binEqI:
+    itemA = binEqI[f][0]
+    itemB = binEqI[f][1]
+    constraint = Constraint(Constraint.BINARY_CONSTRAINT_EQUALITY, items=[items[item1], items[item2]])
+    for g in [item1, item2]: 
+        items[i].constraints.append(constraint)
+
+for h in binEqI:
+    itemA = binUnI[h][0]
+    itemB = binUnI[h][1]
+    constraint = Constraint(Constraint.BINARY_CONSTRAINT_INEQUALITY, items=[items[item1], items[item2]])
+    for j in [item1, item2]: 
+        items[j].constraints.append(constraint)
+
+for k in mutInc:
+    itemA = mutInc[k][0]
+    itemB = mutInc[k][1]
+    bag1 = mutInc[k][2]
+    bag2 = mutInc[k][3]
+    constraint = Constraint(Constraint.BINARY_CONSTRAINT_INCLUSIVITY, items=[
+items[itemA], items[itemB]], bags=[bags[bag1], bags[bag2]])
+    items[itemA].constraints.append(constraint)
+    items[itemB].constraints.append(constraint)
 
 
+#CSP and solve
+csp = CSP(items, bags)
+solver = 
+solution = solver.solve(csp)
 
 
-
-
+#Output
 
 
