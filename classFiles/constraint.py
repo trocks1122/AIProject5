@@ -14,15 +14,15 @@ class Constraint(object):
 
     #Binary constraints
     BC_EQ = 4
-    BC_IEQ = 5
+    BC_INEQ = 5
     BC_INC = 6
 
-    def __init__(self, constraint_type, min_items=-1, max_items=-1, items = [], bags = []:
-    self.min_items = int(min_items)
-    self.max_items = int(max_items)
-    self.items = items
-    self.bags = bags
-    self.constraint_type = constraint_type
+    def __init__(self, constraint_type, min_items=-1, max_items=-1, items = [], bags = []):
+        self.min_items = int(min_items)
+    	self.max_items = int(max_items)
+        self.items = items
+        self.bags = bags
+        self.constraint_type = constraint_type
 
     def get_neighbor(self, me):
         for item in self.items:
@@ -45,7 +45,7 @@ class Constraint(object):
 
     def validate(self):
 
-        if self.constraint_type = self.UC_IN_BAGS:
+        if self.constraint_type == self.UC_IN_BAGS:
             if len(self.items) < 1 or len(self.bags) < 1:
                 raise ValueError("ERROR: Check your values for Unary Constraint - Item in bags")
             for bag in self.bags:
@@ -57,7 +57,7 @@ class Constraint(object):
             if len(self.items) < 1 or len(self.bags) < 1:
                 raise ValueError("ERROR: Check your values for Unary Constraint - Item not in bags")
             for bag in self.bags:
-                cond = self.items[o] not in bag.items
+                cond = self.items[0] not in bag.items
                 if not cond:
                     return False
             return True

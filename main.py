@@ -7,15 +7,14 @@
 import math
 import random
 import numpy as np
-import csv
 import sys
 import re
 import os.path
-from .Bag import Bag
-from .item import Item
-from .constraint import Constraint
-from .CSP import CSP
-from .solver import Solver
+from classFiles.Bag import Bag
+from classFiles.item import Item
+from classFiles.constraint import Constraint
+from classFiles.CSP import CSP
+from classFiles.solver import Solver
 #from StringIO import StringIO
 
 
@@ -36,6 +35,8 @@ binEqI = []
 binUnI = []
 mutInc = []
 
+bags = {}
+items = {}
 
 ln = ""
 lx = 0
@@ -100,7 +101,7 @@ for i in range(len(lines)):
 
 fr.closed
 
-
+"""
 print "Inputs:"       
 print items0 
 print itemsW 
@@ -114,49 +115,55 @@ print exclB
 print binEqI
 print binUnI
 print mutInc
+"""
 
-
-#create objects
-bags = {}
-items = {}
-
-for a in items0:
+for a in xrange(0,len(items0)):
     name = items0[a]
     weight = itemsW[a]
     items[name] = Item(name, weight)
 
-for b in bags0:     
+for b in xrange(0,len(bags0)):     
     name = bags0[b]
     capacity = bagsC[b]
     bags[name] = Bag(name, capacity)
 
-for c in bagsO:
-    constraint = Constraint(Constraint.BAG_FIT_CON, bags=[bags[c]], min_items=fitLim[0], max_items=fitLim[1])
+for c in bags:
+    constraint = Constraint(
+        Constraint.BAG_FIT_CON, bags=[bags[c]], 
+        min_items=fitLim[0], max_items=fitLim[1])
     bags[c].constraints.append(constraint)
 
-for d in inclI:
-    constraint = Constraint(Constraint.UC_IN_BAGS, items=[items[inclI[d]]], bags=inclB[d])
-    items[inclI[d]].constraints.append(constraint)
+for d in xrange(0, len(inclI)):
+    name = inclI[d][0]
+    req_bags = []
+    for m in xrange(0, len(inclB[d])):
+        req_bags.append(bags[inclB[d][m]])
+    constraint = Constraint(Constraint.UC_IN_BAGS, items=[items[name]], bags=req_bags)
+    items[name].constraints.append(constraint)
 
-for e in exclI:
-    constraint = Constraint(Constraint.UC_NOT_IN_BAGS, items=[items[exclI[e]]], bags=exclB[e])
-    items[exclI[e]].constraints.append(constraint)
+for e in xrange(0, len(exclI)):
+    name = exclI[e][0]
+    rej_bags = []
+    for n in xrange(0, len(exclB[e])):
+        rej_bags.append(bags[exclB[e][n]])   
+    constraint = Constraint(Constraint.UC_NOT_IN_BAGS, items=[items[name]], bags=rej_bags)
+    items[name].constraints.append(constraint)
 
-for f in binEqI:
+for f in xrange(0, len(binEqI)):
     itemA = binEqI[f][0]
     itemB = binEqI[f][1]
-    constraint = Constraint(Constraint.BC_EQ, items=[items[item1], items[item2]])
-    for g in [item1, item2]: 
-        items[i].constraints.append(constraint)
+    constraint = Constraint(Constraint.BC_EQ, items=[items[itemA], items[itemB]])
+    for g in [itemA, itemB]: 
+        items[g].constraints.append(constraint)
 
-for h in binEqI:
+for h in xrange(0, len(binEqI)):
     itemA = binUnI[h][0]
     itemB = binUnI[h][1]
-    constraint = Constraint(Constraint.BC_INEQ, items=[items[item1], items[item2]])
-    for j in [item1, item2]: 
+    constraint = Constraint(Constraint.BC_INEQ, items=[items[itemA], items[itemB]])
+    for j in [itemA, itemB]: 
         items[j].constraints.append(constraint)
 
-for k in mutInc:
+for k in xrange(0, len(mutInc)):
     itemA = mutInc[k][0]
     itemB = mutInc[k][1]
     bag1 = mutInc[k][2]
@@ -174,11 +181,11 @@ solution = solver.solve(csp)
 
 
 #Output
+print "CONCLUSION:  "
+print " "
 if solution is not None:
     keys = list(solution.keys())
     keys.sort()
-    print "CONCLUSION:  "
-    print " "
     for bag in keys:
         total_w = sum(items[x].weight for x in solution[bag])
         print(bag + " " + " ".join(solution[bag]))
