@@ -9,13 +9,12 @@ class Solver(object):
 		for bag in items_potential_bags:
 			count = 0
 			for constraint in item.constraints:
-				if (constraint.constraint_type >= Constraint.BC_INEQ):
+				if (constraint.constraint_type >= Constraint.BC_EQ):
 					neighbor = constraint.get_neighbor(item)
 					item.bag = items_potential_bags[bag]
 					items_potential_bags[bag].items.append(item)
 					#number of invalid bags
 					invalid_bags = self.num_invalid_bag(neighbor, potential_bags[neighbor.name])
-
 					items_potential_bags[bag].items.remove(item)
 					item.bag = None
 
@@ -49,7 +48,7 @@ class Solver(object):
         for item_name in unassigned_items:
             count = 0
             for constraint in csp.items[item_name].constraints:
-                if (constraint.constraint_type >= Constraint.BC_INEQ):
+                if (constraint.constraint_type >= Constraint.BC_EQ):
                     for item in constraint.items:
                         if item.name != item_name in unassigned_items:
                             count += 1
@@ -93,7 +92,8 @@ class Solver(object):
             return False
         assigned_item_name = assignment.keys()
         for constraint in item.constraints:
-            if Constraint.UC_IN_BAGS <= constraint.constraint_type <= Constraint.UC_NOT_IN_BAGS:
+            if Constraint.UC_IN_BAGS <= constraint.constraint_type <= Constraint. \
+                    UC_NOT_IN_BAGS:
                 item.bag = bag
                 bag.items.append(item)
                 if not constraint.validate():
@@ -103,7 +103,8 @@ class Solver(object):
                 item.bag = None
                 bag.items.remove(item)
 
-            elif Constraint.BC_EQ <= constraint.constraint_type <= Constraint.BC_INC:
+            elif Constraint.BC_EQ <= constraint.constraint_type \
+                     <= Constraint.BC_INC:
                 neighbor = constraint.get_neighbor(item)
                 if neighbor.name in assigned_item_name:
                     item.bag = bag
@@ -172,11 +173,11 @@ class Solver(object):
         inferences = {}
 
         for constraint in item.constraints:
-            if Constraint.BC_EQ <= constraint.constraint_type < constraint.BC_INC:
+            if Constraint.BC_EQ <= constraint.constraint_type < Constraint.BC_INC:
                 neighbor = constraint.get_neighbor(item)
                 if neighbor.name in unassigned_items:
                     bag.items.append(item)
-                    item.bad = bag 
+                    item.bag = bag 
                     invalid_bags = self.clean_neighbors(constraint, neighbor, potential_bags)
                     bag.items.remove(item)
                     item.bag = None

@@ -21,7 +21,7 @@ class Bag(object):
 
     def almost_full(self):#returns true if the bad is 90%-100% full
         weight = self.total_weight()
-        almost_weight = math.floor(self.capacity*.9)
+        almost_weight = math.floor(self.capacity*0.9)
         if weight < almost_weight:
             return False
         else:
@@ -46,8 +46,8 @@ class Bag(object):
         return True
 
     def lower_limit(self):
-        for constrait in self.constraits:
-			result = constrait.bag_fit_limit()
+        for constranit in self.constraints:
+			result = constraint.bag_fit_limit()
 			if result == Constraint.BI_NOT_ENOUGH:
 				return False
         return True
