@@ -116,15 +116,15 @@ print mutInc
 
 
 #create objects
-bagsO = {}
-itemsO = {}
+bags = {}
+items = {}
 
-for a in range items:
+for a in range items0:
     name = items0[a]
     weight = itemsW[a]
     items[name] = Item(name, weight)
 
-for b in range bags:     
+for b in range bags0:     
     name = bags0[b]
     capacity = bagsC[b]
     bags[name] = Bag(name, capacity)
@@ -168,7 +168,7 @@ items[itemA], items[itemB]], bags=[bags[bag1], bags[bag2]])
 
 #CSP and solve
 csp = CSP(items, bags)
-solver = 
+solver = Solver()
 solution = solver.solve(csp)
 
 
