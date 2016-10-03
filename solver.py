@@ -90,7 +90,7 @@ class Solver(object):
 
 
     def consistent(self, bag, item, assignment, csp):
-        if not bag.fits_in(item):
+        if not bag.fits_in_bag(item):
             return False
         assigned_item_name = assignment.keys()
         for constraint in item.constraints:
