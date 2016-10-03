@@ -40,7 +40,6 @@ class Constraint(object):
                 return Constraint.BI_2_MUCH
             return Constraint.BI_GOOD
 
-
         return -2
 
     def validate(self):

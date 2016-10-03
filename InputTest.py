@@ -7,7 +7,7 @@ import numpy as np
 import csv
 import sys
 import re
-from .bag import Bag
+from .Bag import Bag
 from .item import Item
 from .constraint import Constraint
 from .csp import CSP
