@@ -127,51 +127,57 @@ for b in xrange(0,len(bags0)):
     capacity = bagsC[b]
     bags[name] = Bag(name, capacity)
 
-for c in bags:
-    constraint = Constraint(
-        Constraint.BAG_FIT_CON, bags=[bags[c]], 
-        min_items=fitLim[0], max_items=fitLim[1])
-    bags[c].constraints.append(constraint)
+if len(fitLim) != 0:
+    for c in bags:
+        constraint = Constraint(
+            Constraint.BAG_FIT_CON, bags=[bags[c]], 
+            min_items=fitLim[0], max_items=fitLim[1])
+        bags[c].constraints.append(constraint)
 
-for d in xrange(0, len(inclI)):
-    name = inclI[d][0]
-    req_bags = []
-    for m in xrange(0, len(inclB[d])):
-        req_bags.append(bags[inclB[d][m]])
-    constraint = Constraint(Constraint.UC_IN_BAGS, items=[items[name]], bags=req_bags)
-    items[name].constraints.append(constraint)
+if len(inclI) != 0:
+    for d in xrange(0, len(inclI)):
+        name = inclI[d][0]
+        req_bags = []
+        for m in xrange(0, len(inclB[d])):
+            req_bags.append(bags[inclB[d][m]])
+        constraint = Constraint(Constraint.UC_IN_BAGS, items=[items[name]], bags=req_bags)
+        items[name].constraints.append(constraint)
 
-for e in xrange(0, len(exclI)):
-    name = exclI[e][0]
-    rej_bags = []
-    for n in xrange(0, len(exclB[e])):
-        rej_bags.append(bags[exclB[e][n]])   
-    constraint = Constraint(Constraint.UC_NOT_IN_BAGS, items=[items[name]], bags=rej_bags)
-    items[name].constraints.append(constraint)
+if len(exclI) != 0:
+    for e in xrange(0, len(exclI)):
+        name = exclI[e][0]
+        rej_bags = []
+        for n in xrange(0, len(exclB[e])):
+            rej_bags.append(bags[exclB[e][n]])   
+        constraint = Constraint(Constraint.UC_NOT_IN_BAGS, items=[items[name]], bags=rej_bags)
+        items[name].constraints.append(constraint)
 
-for f in xrange(0, len(binEqI)):
-    itemA = binEqI[f][0]
-    itemB = binEqI[f][1]
-    constraint = Constraint(Constraint.BC_EQ, items=[items[itemA], items[itemB]])
-    for g in [itemA, itemB]: 
-        items[g].constraints.append(constraint)
+if len(binEqI) != 0:
+    for f in xrange(0, len(binEqI)):
+        itemA = binEqI[f][0]
+        itemB = binEqI[f][1]
+        constraint = Constraint(Constraint.BC_EQ, items=[items[itemA], items[itemB]])
+        for g in [itemA, itemB]: 
+            items[g].constraints.append(constraint)
 
-for h in xrange(0, len(binEqI)):
-    itemA = binUnI[h][0]
-    itemB = binUnI[h][1]
-    constraint = Constraint(Constraint.BC_INEQ, items=[items[itemA], items[itemB]])
-    for j in [itemA, itemB]: 
-        items[j].constraints.append(constraint)
+if len(binUnI) != 0:
+    for h in xrange(0, len(binUnI)):
+        itemA = binUnI[h][0]
+        itemB = binUnI[h][1]
+        constraint = Constraint(Constraint.BC_INEQ, items=[items[itemA], items[itemB]])
+        for j in [itemA, itemB]: 
+            items[j].constraints.append(constraint)
 
-for k in xrange(0, len(mutInc)):
-    itemA = mutInc[k][0]
-    itemB = mutInc[k][1]
-    bag1 = mutInc[k][2]
-    bag2 = mutInc[k][3]
-    constraint = Constraint(Constraint.BC_INC, items=[
+if len(mutInc) != 0:
+    for k in xrange(0, len(mutInc)):
+        itemA = mutInc[k][0]
+        itemB = mutInc[k][1]
+        bag1 = mutInc[k][2]
+        bag2 = mutInc[k][3]
+        constraint = Constraint(Constraint.BC_INC, items=[
 items[itemA], items[itemB]], bags=[bags[bag1], bags[bag2]])
-    items[itemA].constraints.append(constraint)
-    items[itemB].constraints.append(constraint)
+        items[itemA].constraints.append(constraint)
+        items[itemB].constraints.append(constraint)
 
 
 #CSP and solve
