@@ -5,8 +5,51 @@ import numpy as np
 import search
 import types
 
+
+class Item(object):
+	def __init__(self, name, weight):
+		#item has a name and weight, no bag but has potential bags and has constramits
+		self.name = name
+		self.weight = int(weight) #convert to int
+		self.bag = None
+		self.potential_bags = {}
+		self.constraints = []
+
+	def putInBag(self, bag):
+		if self.bag:
+			self.bag.items = [s for s in self.bag.items if s.name is not self.name]
+			bag.items.append(self)
+			self.bag = bag
+
+class Bag(object):
+	def __init__(self, name, capacity):
+		#a bag is an object wiith a name, max weight capacity, list of items and list of constraints
+		self.name = name
+		self.capacity = int(capacity) #convert to int
+		self.items = []
+		constraits = []
+
+	def weight(self, weight, item):
+		#gives weight of an item plus the rest of the bag
+		return item.weight + weight
+
+	def total_weight(self):
+		#gives total weigt of bag
+		total_weight = reduce(self.weight, self.items, 0)
+		return total_weight
+
+	def fits_in_bag(self, item):
+		weight = self.total_weight()
+		if item.weight + weight <= self.capacity:
+			
+
+
+
+
+
+
 class CSP(search.problem):
-	def init(self, vars, domains, neighbors, constraints):
+	def __init__(self, vars, domains, neighbors, constraints):
 		vars = vars or domains.keys()
 		update(slef, vars=vars, domains=domains, neighbors=neighbors, initial={}, curr_domains=None, pruned=None, nassigns=0)
 
