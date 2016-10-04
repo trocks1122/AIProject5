@@ -1,0 +1,179 @@
+Test Case Documentation
+
+python main.py input1.txt 
+"""
+CONCLUSION:  
+ 
+a A
+number of items: 1
+total wieght 10/10
+wasted capacity: 0
+"""
+
+
+python main.py input2.txt 
+"""
+CONCLUSION:  
+ 
+a B
+number of items: 1
+total wieght 10/10
+wasted capacity: 0
+b A
+number of items: 1
+total wieght 10/10
+wasted capacity: 0
+"""
+
+
+python main.py input3.txt
+"""
+CONCLUSION:  
+ 
+a B
+number of items: 1
+total wieght 10/10
+wasted capacity: 0
+b A C
+number of items: 2
+total wieght 10/10
+wasted capacity: 0
+"""
+
+
+python main.py input4.txt
+"""
+CONCLUSION:  
+ 
+a A D
+number of items: 2
+total wieght 5/5
+wasted capacity: 0
+b C B
+number of items: 2
+total wieght 5/5
+wasted capacity: 0
+c E
+number of items: 1
+total wieght 5/5
+wasted capacity: 0
+"""
+
+
+python main.py input13.txt
+"""
+CONCLUSION:  
+ 
+a C
+number of items: 1
+total wieght 1/1
+wasted capacity: 0
+b D
+number of items: 1
+total wieght 1/1
+wasted capacity: 0
+c A
+number of items: 1
+total wieght 1/1
+wasted capacity: 0
+d B
+number of items: 1
+total wieght 1/1
+wasted capacity: 0
+
+"""
+
+
+python main.py input19.txt
+"""
+CONCLUSION:  
+ 
+a A B
+number of items: 2
+total wieght 92/100
+wasted capacity: 8
+b C D
+number of items: 2
+total wieght 92/100
+wasted capacity: 8
+
+"""
+
+
+python main.py input24.txt
+"""
+CONCLUSION:  
+ 
+a A E D F I
+number of items: 5
+total wieght 5/5
+wasted capacity: 0
+b C B G H K
+number of items: 5
+total wieght 5/5
+wasted capacity: 0
+c J
+number of items: 1
+total wieght 1/1
+wasted capacity: 0
+"""
+
+
+python main.py input26.txt
+"""
+CONCLUSION:  
+ 
+a A Z
+number of items: 2
+total wieght 27/27
+wasted capacity: 0
+b B Y
+number of items: 2
+total wieght 27/27
+wasted capacity: 0
+c C X
+number of items: 2
+total wieght 27/27
+wasted capacity: 0
+d D W
+number of items: 2
+total wieght 27/27
+wasted capacity: 0
+e E V
+number of items: 2
+total wieght 27/27
+wasted capacity: 0
+f F U
+number of items: 2
+total wieght 27/27
+wasted capacity: 0
+g G T
+number of items: 2
+total wieght 27/27
+wasted capacity: 0
+h H S
+number of items: 2
+total wieght 27/27
+wasted capacity: 0
+i I R
+number of items: 2
+total wieght 27/27
+wasted capacity: 0
+j J Q
+number of items: 2
+total wieght 27/27
+wasted capacity: 0
+k K P
+number of items: 2
+total wieght 27/27
+wasted capacity: 0
+l L O
+number of items: 2
+total wieght 27/27
+wasted capacity: 0
+m M N
+number of items: 2
+total wieght 27/27
+wasted capacity: 0
+"""
+

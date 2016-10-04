@@ -1,6 +1,8 @@
 #Project 5
 #Alex Ruggiero and Trevor Rocks
-
+#code references:
+##http://aima.cs.berkeley.edu/python/csp.html
+##https://github.com/WPI-CS4341/CSP
 
 
 #Imports
