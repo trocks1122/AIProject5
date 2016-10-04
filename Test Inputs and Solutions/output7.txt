@@ -1,0 +1,9 @@
+a D A  
+number of items: 2
+total weight: 7/7
+wasted capacity: 0
+
+b C B  
+number of items: 2
+total weight: 6/7
+wasted capacity: 1

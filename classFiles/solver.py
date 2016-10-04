@@ -126,7 +126,6 @@ class Solver(object):
 
 
     def backtrack(self, assignment, csp, potential_bags):
-        print "Backtracking"
         if self.is_complete(assignment, csp):
             if self.test_all_bags(csp):
                 return assignment
@@ -152,7 +151,7 @@ class Solver(object):
                         return result
 
                     for inference in inferences:
-                        for value in inverences[inference]:
+                        for value in inferences[inference]:
                             new_potential_bags[inference][value] = inferences[inference][value]
 
                 bag.items.remove(item)
@@ -167,7 +166,6 @@ class Solver(object):
         return self.forward_checking(csp, item, bag, assignment, potential_bags)
 
     def forward_checking(self, csp, item, bag, assignment, potential_bags):
-        print "forward checking"
         unassigned_items = {item_name: csp.items[item_name] for item_name in csp.items if item_name in assignment}
 
         inferences = {}
